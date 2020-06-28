@@ -91,6 +91,18 @@ body {
     height: 80px;
 }
 
+.navbtn a {
+    font-size: 2.7rem;
+    position: relative;
+    left: 50%;
+    top: 50%;
+}
+
+.navbtn i {
+    transform: translate(-50%,-50%);
+    color: white;
+}
+
 .navbtn.red {
     background: #EB3B5A;
 }
