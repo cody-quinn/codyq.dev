@@ -10,6 +10,24 @@ body {
 
 }
 
+/* Quotes */
+
+a.quote {
+    text-decoration: none;
+    color: #2d2b2b;
+    font-weight: 300;
+}
+
+a.quote:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+a.quote > i {
+    padding: 0.4rem;
+    font-size: 0.8rem;
+}
+
 /* Utility classes */
 
 .container {
