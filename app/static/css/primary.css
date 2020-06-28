@@ -21,8 +21,12 @@ body {
 /* Hero BG */
 
 #hero {
-    /*background: url("../img/bg-home/nebula-1.jpg") no-repeat center center;*/
-    background: #000;
+    background: url('/api/picture') no-repeat center center;
+    /*background: url('https://source.unsplash.com/random?san+diego+lofi') no-repeat center center;*/
+    /*background: url('https://source.unsplash.com/weekly?mountains') no-repeat center center;*/
+    /*background: url("https://source.unsplash.com/random") no-repeat center center;*/
+    /*background: url("https://apod.nasa.gov/apod/image/2006/EuropaJupiter_Voyager_2792.jpg") no-repeat center center;*/
+    /*background: #000;*/
     width: 100vw;
     height: 100vh;
 }
