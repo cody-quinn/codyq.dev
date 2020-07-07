@@ -19,13 +19,3 @@ def home():
 @app.route('/api/picture')
 def picture():
     return redirect(url_for('static', filename='img/bg-home/image{}.jpg'.format(random.randint(1,5))))
-
-
-@app.route('/api/auth/mc-plugins/65dc2c59-2e02-4e6b-9be1-e73c85ce0cdc/')
-def auth_mcplugins():
-    return "{\
-        'uuid': '65dc2c59-2e02-4e6b-9be1-e73c85ce0cdc',\
-        'name': 'CustodyShop',\
-        'enabled': True,\
-        'paid': False\
-    }"
