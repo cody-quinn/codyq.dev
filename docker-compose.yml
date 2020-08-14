@@ -1,0 +1,10 @@
+version: '3.2'
+
+services:
+  codyq-me:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    ports:
+      - 5050:5050
