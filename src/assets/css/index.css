@@ -1,0 +1,100 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+.container {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  display: flex;
+  align-items: flex-end;
+
+  padding: 80px 0;
+
+  height: 720px;
+  width: 960px;
+}
+
+.bar {
+  width: 100%;
+  background: white;
+  height: 100px;
+  padding: 0 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info {
+  font-family: futura-pt, sans-serif;
+  font-style: italic;
+}
+
+.info h1 {
+  font-weight: 400;
+  font-size: 2.8rem;
+}
+
+.info p {
+  font-weight: 300;
+  font-size: 1.4rem;
+}
+
+.links {
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.links div {
+  background: var(--bgc);
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.links div a {
+  background: var(--fgc);
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.links div a img {
+  width: 60%;
+  height: 60%;
+}
+
+.links div:hover a {
+  transform: translateY(-10px);
+}
+
+.notice {
+  font-size: 0.7rem;
+  color: hsl(0, 0%, 40%);
+  text-align: right;
+  position: fixed;
+  bottom: 4px;
+  right: 4px;
+}
