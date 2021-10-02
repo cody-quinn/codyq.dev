@@ -1,6 +1,7 @@
 import { CopyrightNotice, Header, OSSNotice, PageContainer } from "../../components/components";
 import { getPost, getPosts } from "../../lib/posts";
 import styles from "../../styles/blogpost.module.css";
+import Head from "next/head";
 
 import { unified } from "unified";
 import remarkParse from "remark-parse";
@@ -12,6 +13,21 @@ import rehypeStringify from "rehype-stringify";
 const BlogPost = ({ post }) => {
   return (
     <PageContainer>
+      <Head>
+        <title>codyq.me - {post.title}</title>
+        <meta name='title' content={post.title} />
+        <meta name='description' content={`"${post.summary}"`} />
+
+        <meta property='og:type' content='website' />
+        <meta property='og:url' content={`https://codyq.me/blog/${post.slug}`} />
+        <meta property='og:title' content={post.title} />
+        <meta property='og:description' content={`"${post.summary}"`} />
+
+        <meta property='twitter:url' content={`https://codyq.me/blog/${post.slug}`} />
+        <meta property='twitter:title' content={post.title} />
+        <meta property='twitter:description' content={`"${post.summary}"`} />
+      </Head>
+
       <div>
         <Header>{post.title}</Header>
         <i>"{post.summary}"</i>

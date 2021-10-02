@@ -4,7 +4,7 @@ const GA_TRACKING_ID = process.env.NEXT_PUBLIC_ANALYTICS_ID;
 
 function MyDocument() {
   return (
-    <Html>
+    <Html lang='en'>
       <Head>
         <link rel='icon' href='data:;base64,=' />
 
