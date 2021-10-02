@@ -1,0 +1,75 @@
+.post h1,
+.post h2,
+.post h3,
+.post h4 {
+  @apply font-bold;
+}
+
+.post h1 {
+  @apply text-4xl;
+  @apply my-4;
+}
+
+.post h2 {
+  @apply text-3xl;
+  @apply my-2;
+}
+
+.post h3 {
+  @apply text-2xl;
+  @apply my-1;
+}
+
+.post h4 {
+  @apply text-xl;
+}
+
+.post h5 {
+  @apply text-base;
+  @apply font-extrabold;
+}
+
+.post h6 {
+  @apply text-xs;
+  @apply font-black;
+}
+
+.post p {
+  @apply my-4;
+}
+
+.post ul,
+.post ol {
+  @apply my-4;
+}
+
+.post li {
+  @apply list-disc;
+  @apply list-inside;
+}
+
+.post blockquote {
+  @apply pl-4;
+  @apply border-solid;
+  @apply border-l-4;
+  @apply border-black;
+}
+
+.post code {
+  @apply text-white;
+  @apply bg-black;
+}
+
+.post pre code {
+  @apply p-1;
+  @apply my-4;
+  @apply block;
+}
+
+.post a {
+  @apply text-blue-600;
+}
+
+.post a:hover {
+  @apply underline;
+}
