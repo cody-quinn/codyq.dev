@@ -6,6 +6,9 @@
     "dev": "next dev",
     "build": "next build && next export"
   },
+  "engines": {
+    "node": ">=16.10.0"
+  },
   "dependencies": {
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.2.0",
