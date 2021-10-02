@@ -15,7 +15,7 @@ const BlogPost = ({ post }) => {
       <div>
         <Header>{post.title}</Header>
         <i>"{post.summary}"</i>
-        <p className='text-sm'>🗓️ {post.date}</p>
+        <p className='text-sm'>{post.date}</p>
       </div>
       <div className={styles.post} dangerouslySetInnerHTML={{ __html: post.content }} />
       <div>

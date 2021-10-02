@@ -8,9 +8,11 @@ tags:
   - meta
 ---
 
-Hello and welcome to the few of you reading this! This is my very first blog post on my new website. Kind of a meta post, as we will be discussing the process of actually making this blog.
+### 👋 Hello
 
-### Static Site Generation
+Welcome to the few of you reading this! This is my very first blog post on my new website. Kind of a meta post, as we will be discussing the process of actually making this blog.
+
+### ⚙️ Static Site Generation
 
 When I started making this website I wanted it to be **fast**! I personally have really bad internet, if I'm lucky I might get 5 mbps down, so I know what it feels like for a page to _load_. I figured the best way to have this, while still having ease of editing would be through Static Site Generation.
 
@@ -45,11 +47,11 @@ Some alternatives to Netlify which are also great:
 - [Vercel](https://vercel.com)
 - [GitHub Pages](https://guides.github.com/features/pages/) (Perfect for Jekyll)
 
-### Design
+### 🎨 Design
 
 I put very little thought into the design, though I do believe it came out looking decent. I used [TailwindCSS]() instead of CSS, and I liked it, alot! This was my first "real" project using it, and I can safely say I **will** be coming back.
 
-### Code Blocks
+### ⬛️ Code Blocks
 
 Code blocks were a pain, but I got them working! This was a requirement in my eyes, for a blog that will be centered around coding not to have well supported code blocks would be an embarrasment. I'm using the library [rehype-highlight](https://www.npmjs.com/package/rehype-highlight), which is an addon to rehype, the library I'm using for parsing the markdown itself.
 
@@ -64,6 +66,6 @@ function count() {
 count();
 ```
 
-### Thank you!
+### 💙 Thank you!
 
 I would like to thank everyone who took their time to read this, ya'll are great!
