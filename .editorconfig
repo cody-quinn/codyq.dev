@@ -1,0 +1,19 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+[*.{fs,fsx}]
+indent_style = space
+indent_size = 2
+
+fsharp_space_before_member = true
+fsharp_space_before_colon = true
+
+fsharp_array_or_list_multiline_formatter = number_of_items
+fsharp_record_multiline_formatter = number_of_items
+
+fsharp_max_function_binding_width = 60
+
+fsharp_experimental_elmish = true

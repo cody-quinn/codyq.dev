@@ -1,0 +1,11 @@
+# Rider
+.idea
+*.DotSettings.user
+
+# .NET
+/out/
+bin/
+obj/
+
+# Program
+dist/

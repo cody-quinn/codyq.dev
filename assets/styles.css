@@ -1,0 +1,90 @@
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+* {
+    margin: 0;
+}
+
+html {
+    font-family: monospace;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+body {
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 12px 8px;
+}
+
+body > * + *::before {
+    content: "";
+    margin: 12px 0;
+    display: block;
+    overflow: hidden;
+    border: #333333 inset 1px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    display: block;
+    margin: 12px 0;
+    font-size: 1rem;
+}
+
+h1::before {
+    content: "### ";
+}
+
+h2::before {
+    content: "## ";
+}
+
+a,
+a:visited {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #0000ee;
+}
+
+a:active,
+a:hover {
+    color: white;
+    background: #0000ee;
+}
+
+a:has(>img) {
+    color: unset !important;
+    background: unset !important;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header > #logo {
+    font-size: 1rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+nav {
+    display: flex;
+    gap: 12px;
+}
+
+main > ul,
+main > ol {
+    padding: 0;
+}
