@@ -119,13 +119,13 @@ module Templates =
           Elem.br []
           Text.raw "Site "
           Elem.a [
-            Attr.href ""
+            Attr.href "https://github.com/cody-quinn/codyq.dev"
             Attr.target "_blank"
             Attr.rel "noopener noreferrer"
           ] [ Text.raw "source code" ]
           Text.raw " is licensed under "
           Elem.a [
-            Attr.href ""
+            Attr.href "https://github.com/cody-quinn/codyq.dev/blob/master/LICENSE"
             Attr.target "_blank"
             Attr.rel "noopener noreferrer"
           ] [ Text.raw "MIT" ]
