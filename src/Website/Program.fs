@@ -94,8 +94,6 @@ module Templates =
   let page title header body footer =
     Templates.html5 "en" [
       yield! header
-      Header.Link.preload "/fonts/rubik-regular.woff2" "font" "font/woff2"
-      Header.Link.preload "/fonts/rubik-semibold.woff2" "font" "font/woff2"
       Header.Link.stylesheet "/styles.css"
       Header.Link.icon "data:;base64,iVBORw0KGgo="
     ] [
