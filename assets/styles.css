@@ -1,3 +1,8 @@
+:root {
+    --text-color: #000000;
+    --link-color: #0000ee;
+}
+
 *,
 *::before,
 *::after {
@@ -18,6 +23,7 @@ body {
     max-width: 768px;
     margin: 0 auto;
     padding: 12px 8px;
+    color: var(--text-color);
 }
 
 body > * + *::before {
@@ -51,13 +57,13 @@ a,
 a:visited {
     text-decoration: underline;
     cursor: pointer;
-    color: #0000ee;
+    color: var(--link-color);
 }
 
 a:active,
 a:hover {
     color: white;
-    background: #0000ee;
+    background: var(--link-color);
 }
 
 a:has(>img) {
@@ -87,4 +93,19 @@ nav {
 main > ul,
 main > ol {
     padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: #eeeeee;
+        --link-color: #0392da;
+    }
+
+    body {
+        background: #000000;
+    }
+
+    hr {
+        filter: brightness(0.3);
+    }
 }
