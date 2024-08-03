@@ -7,12 +7,16 @@
 
     <ItemGroup>
         <PackageReference Include="Falco.Markup" Version="1.1.1"/>
-        <PackageReference Include="Markdig" Version="0.37.0" />
-        <PackageReference Include="Markdown.ColorCode" Version="2.2.2" />
+        <PackageReference Include="FSharp.Data" Version="6.4.0" />
+        <PackageReference Include="LibGit2Sharp" Version="0.28.0" />
+        <PackageReference Include="Markdig" Version="0.37.0"/>
+        <PackageReference Include="Markdown.ColorCode" Version="2.2.2"/>
+        <PackageReference Include="YamlDotNet" Version="16.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Include="Program.fs" />
+        <Compile Include="Program.fs"/>
+        <Watch Include="../../data/**/*;../../assets/**/*"/>
     </ItemGroup>
 
 </Project>

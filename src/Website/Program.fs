@@ -2,9 +2,37 @@
 
 open System
 open System.IO
+open System.Security.Cryptography
+open System.Text
+open FSharp.Data
 open Falco.Markup
+open LibGit2Sharp
 open Markdig
 open Markdown.ColorCode
+open YamlDotNet.Serialization
+
+let pwd =
+  Environment.GetEnvironmentVariable "PWD"
+  |> Option.ofObj
+  |> Option.defaultValue Environment.CurrentDirectory
+
+let sha256Hash value =
+  (value : string)
+  |> Encoding.ASCII.GetBytes
+  |> SHA256.HashData
+  |> Array.fold (fun curr next -> curr + next.ToString("x2")) ""
+
+[<RequireQualifiedAccess>]
+module Json =
+  let findStringProperty name default' value =
+    JsonExtensions.TryGetProperty(value, name)
+    |> Option.map JsonExtensions.AsString
+    |> Option.defaultValue default'
+
+  let findBooleanProperty name default' value =
+    JsonExtensions.TryGetProperty(value, name)
+    |> Option.map JsonExtensions.AsBoolean
+    |> Option.defaultValue default'
 
 let badges =
   let badges =
@@ -59,7 +87,13 @@ let badges =
     |> List.distinct
     |> List.fold (fun curr e -> $"%s{curr}\n- %s{e}") "\n88x31 sources:"
 
-  Elem.create "marquee" [] (Text.comment sources :: elements)
+  Elem.create
+    "marquee"
+    [ Attr.create "direction" "left"
+      Attr.create "behavior" "alternate"
+      Attr.onmouseenter "this.stop()"
+      Attr.onmouseleave "this.start()" ]
+    (Text.comment sources :: elements)
 
 module Header =
   let meta name content =
@@ -81,7 +115,6 @@ module Header =
     let icon = link "icon"
 
     let preload href as' type' =
-
       Elem.link [
         Attr.rel "preload"
         Attr.href href
@@ -89,6 +122,13 @@ module Header =
         Attr.type' type'
         Attr.crossorigin ""
       ]
+
+type PageMetadata =
+  { Properties : JsonValue
+    SourcePath : string
+    DestinationPath : string
+    LatestAffectingCommit : Commit option
+    LatestCommit : Commit option }
 
 module Templates =
   let page title header body footer =
@@ -132,24 +172,76 @@ module Templates =
       ]
     ]
 
-  type PageTemplate = string -> string -> XmlNode
+  type PageTemplate = PageMetadata -> string -> XmlNode
 
-  let homepage : PageTemplate =
+  let generic : PageTemplate =
     fun meta content ->
-      page "Cody Quinn's Homepage" [ Header.title "Cody Quinn's Homepage" ] [ Text.raw content ] [ badges ]
+      let props = meta.Properties
 
-let compilePage template src dest =
+      let header = Json.findStringProperty "pageHeader" "Cody Quinn's Homepage" props
+      let title = Json.findStringProperty "pageTitle" "Cody Quinn's Homepage" props
+      let showBadges = Json.findBooleanProperty "showBadges" true props
+      let showHistory = Json.findBooleanProperty "showHistory" true props
+
+      let history =
+        meta.LatestAffectingCommit
+        |> Option.map (fun commit ->
+          let relativePath = meta.SourcePath.Substring(pwd.Length + 1)
+
+          let commitHash = commit.Sha
+          let pathHash = sha256Hash relativePath
+
+          let commitDateTime = commit.Author.When.ToOffset(TimeSpan.FromHours(-6))
+          let commitTime = commitDateTime.ToString("h:mm:ss tt")
+          let commitDate = commitDateTime.ToString("M/d/yyyy")
+
+          // Render out the element
+          Elem.p [] [
+            Text.raw $"Page last modified at {commitTime} CST on {commitDate}. "
+            Elem.a [
+              Attr.href $"https://github.com/cody-quinn/codyq.dev/commits/master/{relativePath}"
+              Attr.target "_blank"
+              Attr.rel "noopener noreferrer"
+            ] [ Text.raw "History" ]
+            Text.raw ". "
+            Elem.a [
+              Attr.href $"https://github.com/cody-quinn/codyq.dev/commit/{commitHash}#diff-{pathHash}"
+              Attr.target "_blank"
+              Attr.rel "noopener noreferrer"
+            ] [ Text.raw "Diff" ]
+            Text.raw "."
+          ])
+        |> Option.defaultValue (Text.p "Page commit info is unavailable.")
+
+      page header [ Header.title title ] [ Text.raw content ] [
+        if showBadges then
+          badges
+        if showHistory then
+          history
+      ]
+
+let compilePage src dest =
+  // Function to convert yaml to json (because the yaml library sucks)
+  let yamlToJson yaml =
+    if String.IsNullOrWhiteSpace yaml then
+      JsonValue.Record [||]
+    else
+      yaml
+      |> DeserializerBuilder().Build().Deserialize
+      |> SerializerBuilder().JsonCompatible().Build().Serialize
+      |> JsonValue.Parse
+
   // Function to split the document into meta & content
   let splitDocument (src : string) =
     if src.StartsWith "---" then
       let end' = src.IndexOf("---", 3)
 
       if end' <> -1 then
-        src.Substring(3, end' - 3) |> _.Trim(), src.Substring(end' + 3) |> _.Trim()
+        src.Substring(3, end' - 3).Trim() |> yamlToJson, src.Substring(end' + 3).Trim()
       else
-        "", src
+        JsonValue.Record [||], src
     else
-      "", src
+      JsonValue.Record [||], src
 
   // Pipeline to convert markdown to HTML
   let pipeline =
@@ -159,7 +251,33 @@ let compilePage template src dest =
       .Build()
 
   let document = File.ReadAllText src
-  let meta, content = splitDocument document
+  let properties, content = splitDocument document
+
+  use gitRepo = new Repository(pwd)
+
+  let gitCommit =
+    let relativePath = src.Substring(pwd.Length + 1)
+    let gitFileHistory = gitRepo.Commits.QueryBy(relativePath).GetEnumerator()
+
+    if gitFileHistory.MoveNext() then
+      Some gitFileHistory.Current.Commit
+    else
+      None
+
+  let meta =
+    { Properties = properties
+      SourcePath = src
+      DestinationPath = dest
+      LatestAffectingCommit = gitCommit
+      LatestCommit = Some gitRepo.Head.Tip }
+
+  let template =
+    match Json.findStringProperty "template" "generic" meta.Properties with
+    | "generic" -> Templates.generic
+    | value ->
+      eprintfn $"Unknown template '{value}'"
+      exit 1
+
   let contentHtml = Markdown.ToHtml(content, pipeline)
   let pageHtml = template meta contentHtml |> renderHtml
 
@@ -167,19 +285,28 @@ let compilePage template src dest =
 
 [<EntryPoint>]
 let main _ =
+  let inputDirectory = Path.Join(pwd, "data")
+  let outputDirectory = Path.Join(pwd, "dist")
+
   // Delete the dist folder if it exists
-  if Directory.Exists "dist" then
-    Directory.Delete("dist", true)
+  if Directory.Exists outputDirectory then
+    Directory.Delete(outputDirectory, true)
 
-  // Copy everything from the assets folder to the dist folder
-  for path in Directory.GetDirectories("assets", "*", SearchOption.AllDirectories) do
-    Directory.CreateDirectory($"dist/{path.Substring(6)}") |> ignore
+  // Copy everything from the input folder to the output folder
+  for path in Directory.GetDirectories(inputDirectory, "*", SearchOption.AllDirectories) do
+    let outputPath = Path.Join(outputDirectory, path.Substring(inputDirectory.Length))
+    Directory.CreateDirectory(outputPath) |> ignore
 
-  for path in Directory.GetFiles("assets", "*", SearchOption.AllDirectories) do
-    File.Copy(path, $"dist/{path.Substring(6)}")
+  for path in Directory.GetFiles(inputDirectory, "*", SearchOption.AllDirectories) do
+    let outputPath = Path.Join(outputDirectory, path.Substring(inputDirectory.Length))
 
-  // Compile basic pages from markdown
-  compilePage Templates.homepage "data/index.md" "dist/index.html"
-  compilePage Templates.homepage "data/404.md" "dist/404.html"
+    if Path.GetExtension path = ".md" then
+      // If the page is a markdown page we need to process it
+      let outputPath = Path.ChangeExtension(outputPath, ".html")
+      compilePage path outputPath
+      printfn $"Compiled: {path}"
+    else
+      File.Copy(path, outputPath)
+      printfn $"Copied: {path}"
 
   0
