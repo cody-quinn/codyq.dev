@@ -18,6 +18,7 @@
           packages = with pkgs; [
             dotnet-sdk_8
             libgit2
+            nodePackages.wrangler
           ];
           DOTNET_ROOT = "${pkgs.dotnet-sdk_8}";
           LD_LIBRARY_PATH = "${pkgs.libgit2}/lib";

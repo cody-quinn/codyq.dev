@@ -56,6 +56,7 @@ let badges =
       "friends",
       [ "friends/gaffclant.png", "Gaffclant NOW", (Some "https://gaffclant.dev")
         "friends/goldenstack.png", "GoldenStack (1.0)", (Some "https://goldenstack.net")
+        "friends/mat.png", "Mat does dev! :3", (Some "https://matdoes.dev")
         "friends/mudkip.png", "Mudkip", (Some "https://mudkip.dev")
         "friends/emortal.png", "Emortal", (Some "https://emortaldev.github.io/") ] ]
 
@@ -87,13 +88,15 @@ let badges =
     |> List.distinct
     |> List.fold (fun curr e -> $"%s{curr}\n- %s{e}") "\n88x31 sources:"
 
-  Elem.create
-    "marquee"
-    [ Attr.create "direction" "left"
-      Attr.create "behavior" "alternate"
-      Attr.onmouseenter "this.stop()"
-      Attr.onmouseleave "this.start()" ]
-    (Text.comment sources :: elements)
+  let duration = (List.length elements |> float) * 1.5 |> int
+
+  Elem.div [ Attr.class' "marquee" ] [
+    Text.comment sources
+    Elem.div
+      [ Attr.class' "marquee-inner"
+        Attr.style $"animation-duration:%i{duration}s;height:31px" ]
+      elements
+  ]
 
 module Header =
   let meta name content =
@@ -233,13 +236,10 @@ let compilePage src dest =
 
   // Function to split the document into meta & content
   let splitDocument (src : string) =
-    if src.StartsWith "---" then
-      let end' = src.IndexOf("---", 3)
+    let end' = src.IndexOf("---", 3)
 
-      if end' <> -1 then
-        src.Substring(3, end' - 3).Trim() |> yamlToJson, src.Substring(end' + 3).Trim()
-      else
-        JsonValue.Record [||], src
+    if src.StartsWith "---" && end' <> -1 then
+      src.Substring(3, end' - 3).Trim() |> yamlToJson, src.Substring(end' + 3).Trim()
     else
       JsonValue.Record [||], src
 

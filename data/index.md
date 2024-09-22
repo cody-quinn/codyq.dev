@@ -8,6 +8,7 @@ dotfiles can be found [on GitHub](https://github.com/cody-quinn/dotfiles).
 - Email: <a onclick="this.outerHTML=atob('Y29keUBjb2R5cS5kZXY=')">reveal</a>
 - GitHub: [@cody-quinn](https://github.com/cody-quinn)
 - Discord: [@codyq.dev](https://discord.com/users/179009161009299456)
+- Twitter: [@codyqdev](https://x.com/codyqdev)
 
 # Friends
 
