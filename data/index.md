@@ -1,7 +1,7 @@
-Hello and welcome to my personal homepage! My name is Cody Quinn. I am a 19-year-old Software Engineer living in Texas.
-While I know at least a little about the most popular languages, I am most proficient with the languages F#, Java,
-JavaScript, Kotlin, and Rust. I am a NixOS user and have been using Linux based operating systems since early 2020. My
-dotfiles can be found [on GitHub](https://github.com/cody-quinn/dotfiles).
+Hello and welcome to my personal homepage! My name is Cody Quinn. I am a 20-year-old Software Engineer living in Texas.
+While I know at least a little about the most popular languages, I am most proficient with the languages F#, Java, and 
+TypeScript. I am a NixOS user and have been using Linux based operating systems since early 2020. My dotfiles can be 
+found [on GitHub](https://github.com/cody-quinn/dotfiles).
 
 # Contact Information
 
@@ -13,8 +13,9 @@ dotfiles can be found [on GitHub](https://github.com/cody-quinn/dotfiles).
 # Friends
 
 - [Gaffclant](https://gaffclant.dev){target=_blank}
-- [Ramenisneat](https://ramenisneat.github.io/){target=_blank}
+- [Ramenisneat](https://www.cs.utexas.edu/~rmyana){target=_blank}
 - [GoldenStack](https://goldenstack.net){target=_blank}
 - [Mudkip](https://mudkip.dev){target=_blank}
 - [Emortal](https://emortaldev.github.io/){target=_blank}
 - [Midka](https://midka.dev){target=_blank}
+- [Ollie](https://ollie.lol){target=_blank}
