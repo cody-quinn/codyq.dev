@@ -16,6 +16,13 @@ module Stages =
   let publish branch =
     stage "publish" { run $"wrangler pages deploy dist --project-name=homepage --branch=%s{branch}" }
 
+pipeline "build" {
+  Stages.restore
+  Stages.run
+
+  runIfOnlySpecified true
+}
+
 pipeline "watch" {
   Stages.restore
 
