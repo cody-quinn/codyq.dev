@@ -2,6 +2,7 @@
 
 open System
 open System.IO
+open System.Reflection
 open System.Security.Cryptography
 open System.Text
 open FSharp.Data
@@ -21,6 +22,12 @@ let sha256Hash value =
   |> Encoding.ASCII.GetBytes
   |> SHA256.HashData
   |> Array.fold (fun curr next -> curr + next.ToString("x2")) ""
+
+let readEmbeddedResource name =
+  let asm = Assembly.GetExecutingAssembly()
+  use stream = asm.GetManifestResourceStream(name)
+  use reader = new StreamReader(stream)
+  reader.ReadToEnd()
 
 [<RequireQualifiedAccess>]
 module Json =
@@ -170,7 +177,10 @@ module Templates =
           ] [ Text.raw "MIT" ]
           Text.raw "."
         ]
+        Elem.noscript [] [ Text.p "Some features may be unavailable without JavaScript." ]
       ]
+
+      Elem.script [ Attr.type' "application/javascript" ] [ Text.raw (readEmbeddedResource "Website.universal.js") ]
     ]
 
   type PageTemplate = PageMetadata -> string -> XmlNode
@@ -192,13 +202,18 @@ module Templates =
           let commitHash = commit.Sha
           let pathHash = sha256Hash relativePath
 
-          let commitDateTime = commit.Author.When.ToOffset(TimeSpan.FromHours(-6))
+          let commitDateTime = commit.Author.When.UtcDateTime
           let commitTime = commitDateTime.ToString("h:mm:ss tt")
           let commitDate = commitDateTime.ToString("M/d/yyyy")
 
           // Render out the element
           Elem.p [] [
-            Text.raw $"Page last modified at {commitTime} CST on {commitDate}. "
+            Text.raw "Page last modified on "
+            Elem.span [
+              Attr.dataAttr "timestamp" $"{commit.Author.When.ToUnixTimeSeconds()}"
+              Attr.dataAttr "timestamp-format" "{D} at {T}"
+            ] [ Text.raw $"{commitDate} at {commitTime} UTC" ]
+            Text.raw ". "
             Elem.a [
               Attr.href $"https://github.com/cody-quinn/codyq.dev/commits/master/{relativePath}"
               Attr.target "_blank"
