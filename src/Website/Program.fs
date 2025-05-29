@@ -38,12 +38,10 @@ let badges =
   let badges =
     [ "https://versary.town",
       [ "antinft.gif", "This is an Anti-NFT site", None
-        "piracy.gif", "Piracy Now! (Free)", None
         "lan.gif", "Screw y'all I'm going back to my LAN", None ]
 
-      "http://88x31.nl",
-      [ "seedyourtorrents.gif", "Sharing is caring... Seed your torrents", None
-        "ltt.gif", "Free tech tips", None
+      "https://88x31.nl",
+      [ "ltt.gif", "Free tech tips", None
         "linux-p.gif", "Linux powered", None
         "homesite.gif", "Homesite Now!", None
         "hair.gif", "No bad hairday on the internet!", None
@@ -245,10 +243,7 @@ let compilePage src dest =
 
   // Pipeline to convert markdown to HTML
   let pipeline =
-    MarkdownPipelineBuilder()
-      .UseAdvancedExtensions()
-      .UseColorCode(HtmlFormatterType.Style)
-      .Build()
+    MarkdownPipelineBuilder().UseAdvancedExtensions().UseColorCode(HtmlFormatterType.Style).Build()
 
   let document = File.ReadAllText src
   let properties, content = splitDocument document
