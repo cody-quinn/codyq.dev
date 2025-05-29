@@ -7,6 +7,12 @@
       "commands": [
         "dotnet-serve"
       ]
+    },
+    "fantomas": {
+      "version": "7.0.2",
+      "commands": [
+        "fantomas"
+      ]
     }
   }
 }
