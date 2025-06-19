@@ -59,7 +59,7 @@ let badges =
       "https://anlucas.neocities.org/88x31Buttons", [ "drpepper.gif", "Powered by Dr. Pepper", None ]
 
       "friends",
-      [ "friends/gaffclant.png", "Gaffclant NOW", (Some "https://gaffclant.dev")
+      [ "friends/gaffclant.png", "Gaffclant NOW", (Some "https://github.com/gaffclant")
         "friends/goldenstack.png", "GoldenStack (1.0)", (Some "https://goldenstack.net")
         "friends/mat.png", "Mat does dev! :3", (Some "https://matdoes.dev")
         "friends/mudkip.png", "Mudkip", (Some "https://mudkip.dev")

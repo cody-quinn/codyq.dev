@@ -26,7 +26,7 @@ channel, email is probably the best way to reach me.
 
 # Interweb Friends
 
-- [Gaffclant](https://gaffclant.dev){target=_blank}
+- [Gaffclant](https://github.com/gaffclant){target=_blank}
 - [Ramenisneat](https://www.cs.utexas.edu/~rmyana){target=_blank}
 - [GoldenStack](https://goldenstack.net){target=_blank}
 - [Mudkip](https://mudkip.dev){target=_blank}
