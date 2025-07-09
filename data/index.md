@@ -34,6 +34,12 @@ channel, email is probably the best way to reach me.
 - [Midka](https://midka.dev){target=_blank}
 - [Ollie](https://ollie.lol){target=_blank}
 
+{style="text-align:center"}
+[← Prev](https://yellowbrickring.com/webring?from=codyq.dev&to=prev) |
+[Yellow Brick Webring](https://yellowbrickring.com)
+[🎲](https://yellowbrickring.com/webring?from=codyq.dev&to=random){style="text-decoration:none"} |
+[Next →](https://yellowbrickring.com/webring?from=codyq.dev&to=next)
+
 <script type="application/javascript">
 const address = atob('Y29keUBjb2R5cS5kZXY=')
 document.getElementById('email').addEventListener('click', ({ target }) => {
