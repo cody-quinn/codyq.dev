@@ -155,6 +155,12 @@ module Templates =
       Elem.footer [] [
         yield! footer
         Elem.p [] [
+          Text.raw "Site design stolen from GoldenStack @ "
+          Elem.a [
+            Attr.href "https://goldenstack.net"
+          ] [ Text.raw "goldenstack.net" ]
+          Text.raw "."
+          Elem.br []
           Text.raw "Site contents is licensed under "
           Elem.a [
             Attr.href "https://creativecommons.org/licenses/by/4.0"
@@ -190,7 +196,7 @@ module Templates =
       let props = meta.Properties
 
       let header = Json.findStringProperty "pageHeader" "Cody Quinn's Homepage" props
-      let title = Json.findStringProperty "pageTitle" "Cody Quinn's Homepage" props
+      let title = Json.findStringProperty "pageTitle" header props
       let showBadges = Json.findBooleanProperty "showBadges" true props
       let showHistory = Json.findBooleanProperty "showHistory" true props
 
