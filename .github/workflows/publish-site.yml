@@ -16,7 +16,7 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - uses: DeterminateSystems/flake-checker-action@main
       - name: Deploy website
-        run: "nix develop --command sh -c 'dotnet fsi build.fsx -- -p publish'"
+        run: "nix develop .#wrangler --command sh -c 'dotnet fsi build.fsx -- -p publish'"
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
