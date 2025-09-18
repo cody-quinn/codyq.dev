@@ -1,4 +1,4 @@
-Welcome! I'm Cody, a 20-year-old Computer Science nerd, and this is my personal homepage. Programming has long been an
+Welcome! I'm Cody, a 20-year-old Computer Science student, and this is my personal homepage. Programming has long been an
 interest of mine, beginning at 11 years old writing [Bukkit](https://bukkit.org) plugins in Java. But my interest didn't
 stop at Bukkit plugins; it expanded to a general interest in Computer Science and making all sorts of things like
 websites, simulations, bots, and compilers. Recently I've been going back to my roots of making Minecraft servers, but
