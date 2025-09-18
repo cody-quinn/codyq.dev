@@ -147,7 +147,10 @@ module Templates =
     ] [
       Elem.header [] [
         Elem.span [ Attr.id "logo" ] [ Text.raw title ]
-        Elem.nav [] [ Elem.a [ Attr.href "/" ] [ Text.raw "Home" ] ]
+        Elem.nav [] [
+          Elem.a [ Attr.href "/" ] [ Text.raw "Home" ]
+          Elem.a [ Attr.href "/projects" ] [ Text.raw "Projects" ]
+        ]
       ]
 
       Elem.main [] body
@@ -195,7 +198,7 @@ module Templates =
     fun meta content ->
       let props = meta.Properties
 
-      let header = Json.findStringProperty "pageHeader" "Cody Quinn's Homepage" props
+      let header = Json.findStringProperty "pageHeader" "Cody's Homepage" props
       let title = Json.findStringProperty "pageTitle" header props
       let showBadges = Json.findBooleanProperty "showBadges" true props
       let showHistory = Json.findBooleanProperty "showHistory" true props
