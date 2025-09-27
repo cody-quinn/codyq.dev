@@ -63,7 +63,8 @@ let badges =
         "friends/goldenstack.png", "GoldenStack (1.0)", (Some "https://goldenstack.net")
         "friends/mat.png", "Mat does dev! :3", (Some "https://matdoes.dev")
         "friends/mudkip.png", "Mudkip", (Some "https://mudkip.dev")
-        "friends/emortal.png", "Emortal", (Some "https://emortaldev.github.io/") ] ]
+        "friends/emortal.png", "Emortal", (Some "https://emortaldev.github.io/")
+        "friends/ollie.webp", "Ollie", (Some "https://ollie.lol") ] ]
 
   let elements =
     badges
