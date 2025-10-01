@@ -26,13 +26,13 @@ channel, email is probably the best way to reach me.
 
 # Interweb Friends
 
-- [Gaffclant](https://github.com/gaffclant){target=_blank}
-- [Ramenisneat](https://www.cs.utexas.edu/~rmyana){target=_blank}
-- [GoldenStack](https://goldenstack.net){target=_blank}
-- [Mudkip](https://mudkip.dev){target=_blank}
-- [Emortal](https://emortaldev.github.io/){target=_blank}
-- [Midka](https://midka.dev){target=_blank}
-- [Ollie](https://ollie.lol){target=_blank}
+- [Nic Gaffney](https://ngaffney.dev/)
+- [Ramenisneat](https://www.cs.utexas.edu/~rmyana)
+- [GoldenStack](https://goldenstack.net)
+- [Mudkip](https://mudkip.dev)
+- [Emortal](https://emortaldev.github.io/)
+- [Midka](https://midka.dev)
+- [Ollie](https://ollie.lol)
 
 {style="text-align:center"}
 [← Prev](https://yellowbrickring.com/webring?from=codyq.dev&to=prev) |
