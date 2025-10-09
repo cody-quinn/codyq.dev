@@ -4,7 +4,10 @@ pageHeader: "Cody's Projects"
 
 # Minestalgia
 
-![minestalgia.png](minestalgia.png)
+<div style="display: flex">
+  <img src="minestalgia.png" alt="Early screenshot of Minestalgia with every block in every chunk" style="width: 50%">
+  <img src="minestalgia2.png" alt="Screenshot of Minestalgia with 3D terrain generation using Perlin Noise" style="width: 50%">
+</div>
 
 Minestalgia is a reimplementation of the Minecraft Beta 1.7.3 server software.
 It's written in Zig and as of now doesn't depend on any third party libraries,
