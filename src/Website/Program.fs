@@ -12,6 +12,8 @@ open Markdig
 open Markdown.ColorCode
 open YamlDotNet.Serialization
 
+open Website.Markdown
+
 let pwd =
   Environment.GetEnvironmentVariable "PWD"
   |> Option.ofObj

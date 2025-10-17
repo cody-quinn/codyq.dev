@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Compile Include="Rss.fs"/>
         <Compile Include="Program.fs"/>
         <Watch Include="../../data/**/*;../../assets/**/*"/>
     </ItemGroup>
