@@ -35,6 +35,14 @@ let readEmbeddedResource name =
   reader.ReadToEnd()
 
 [<RequireQualifiedAccess>]
+module String =
+  let trimLines (str : string) =
+    str.Split("\n")
+    |> Array.filter (String.IsNullOrWhiteSpace >> not)
+    |> Array.map (_.TrimStart())
+    |> Array.reduce (fun c acc -> $"{c} {acc}")
+
+[<RequireQualifiedAccess>]
 module Json =
   let findStringProperty name default' value =
     JsonExtensions.TryGetProperty(value, name)
@@ -145,7 +153,9 @@ type Page =
     LatestAffectingCommit : Commit option
     LatestCommit : Commit option }
 
-type Context = { AllPages : Page list }
+type Context =
+  { AllPages : Page list
+    JournalEntries : Page list }
 
 module Templates =
   let pageBase title header body footer =
@@ -299,6 +309,9 @@ module Templates =
 
       $"{monthText} {dayText}, {entryYear}"
 
+    let private getPermaLink (entry : Page) =
+      "/" + Path.GetRelativePath(outputDirectory, entry.DestinationPath)
+
     let aggregate : PageTemplate =
       fun ctx page content ->
         // Pipeline to convert markdown to HTML
@@ -306,29 +319,23 @@ module Templates =
           MarkdownPipelineBuilder().UseAdvancedExtensions().UseColorCode(HtmlFormatterType.Style).Build()
 
         let entryDisplay (entry : Page) =
-          let url = "/" + Path.GetRelativePath(outputDirectory, entry.DestinationPath)
           let timeText = getTimeDisplay entry
 
           Elem.div [] [
             Elem.h3 [] [
               Text.raw timeText
               Text.raw " ["
-              Elem.a [ Attr.href url ] [ Text.raw "Permalink" ]
+              Elem.a [ Attr.href (getPermaLink entry) ] [ Text.raw "Permalink" ]
               Text.raw "]"
             ]
 
             Text.raw (Markdown.ToHtml(entry.Contents, pipeline))
           ]
 
-        let entries =
-          ctx.AllPages
-          |> List.filter (fun it -> Path.GetRelativePath(inputDirectory, it.SourcePath).StartsWith("journal/"))
-          |> List.filter (fun it -> Json.findStringProperty "template" "generic" it.Properties = "journal-entry")
-          |> List.sortByDescending (_.SourcePath)
-          |> List.map (entryDisplay >> renderHtml)
-          |> List.reduce (+)
+        let aggregatedEntries =
+          ctx.JournalEntries |> List.map (entryDisplay >> renderHtml) |> List.reduce (+)
 
-        let content = content.Replace("<journal-entries />", entries)
+        let content = content.Replace("<journal-entries />", aggregatedEntries)
 
         genericWrapper page [ Text.raw content ]
 
@@ -340,6 +347,46 @@ module Templates =
           Text.h3 timeText
           Text.raw content
         ]
+
+    let rss (entries : Page list) =
+      let items =
+        entries
+        |> List.map (fun entry ->
+          let content = entry.Contents
+
+          let summary =
+            if content.Length > 400 then
+              $"{content.Substring(0, 380)}..."
+            else
+              content
+
+          Rss.item [] [
+            Rss.title (getTimeDisplay entry)
+            Rss.description summary
+            Rss.link $"https://codyq.dev{getPermaLink entry}"
+            Rss.guid $"https://codyq.dev{getPermaLink entry}"
+          ])
+
+      Rss.root [
+        Rss.channel [] [
+          Rss.title "Cody's Journal"
+          Rss.link "https://codyq.dev/journal/"
+          Rss.description (
+            """
+            Short unedited ramblings about my happenings. Stuff related to both my life and
+            the projects I'm working on. I would call this a blog if the term hadn't been
+            hijacked to mean high-effort essays.
+            """
+            |> String.trimLines
+          )
+          Rss.language "en"
+          Rss.copyright "Copyright 2025, Cody Quinn"
+          Rss.managingEditor "cody@codyq.dev" "Cody Quinn"
+          Rss.webMaster "cody@codyq.dev" "Cody Quinn"
+          Rss.ttl 60
+          yield! items
+        ]
+      ]
 
 let processPage (gitRepo : Repository) src dest =
   // Function to convert yaml to json (because the yaml library sucks)
@@ -433,6 +480,10 @@ let writePage (ctx : Context) (page : Page) =
 
   File.WriteAllText(page.DestinationPath, pageHtml)
 
+let writeFeed (dest : string) (feed : XmlNode) =
+  let feedXml = feed |> renderXml
+  File.WriteAllText(dest, feedXml)
+
 [<EntryPoint>]
 let main _ =
   use gitRepo = new Repository(pwd)
@@ -452,11 +503,23 @@ let main _ =
         let outputPath = Path.ChangeExtension(outputPath, ".html")
         processPage gitRepo path outputPath ]
 
-  let context : Context = { AllPages = pages }
+  let journalEntries =
+    pages
+    |> List.filter (fun it -> Path.GetRelativePath(inputDirectory, it.SourcePath).StartsWith("journal/"))
+    |> List.filter (fun it -> Json.findStringProperty "template" "generic" it.Properties = "journal-entry")
+    |> List.sortByDescending (_.SourcePath)
+
+  let context : Context =
+    { AllPages = pages
+      JournalEntries = journalEntries }
 
   for page in pages do
     writePage context page
     printfn $"Compiled: {page.DestinationPath}"
+
+  let feedPath = Path.Join(outputDirectory, "journal", "feed.rss")
+  writeFeed feedPath (Templates.Journal.rss journalEntries)
+  printfn $"Compiled Feed: {feedPath}"
 
   for path in Directory.GetFiles(inputDirectory, "*", SearchOption.AllDirectories) do
     let outputPath = Path.Join(outputDirectory, path.Substring(inputDirectory.Length))

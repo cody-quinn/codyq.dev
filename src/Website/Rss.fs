@@ -12,11 +12,19 @@ module Rss =
     ]
 
   let channel = Elem.create "channel"
-  let title = Elem.create "title"
-  let description = Elem.create "description"
-  let language = Elem.create "language"
-  let lastBuildDate = Elem.create "lastBuildDate"
+
+  let title text = Elem.create "title" [] [ Text.raw text ]
+  let link link = Elem.create "link" [] [ Text.raw link ]
+  let guid link = Elem.create "guid" [] [ Text.raw link ] // Same as link, since links are perma for me
+  let description text = Elem.create "description" [] [ Text.raw text ]
+  let language lang = Elem.create "language" [] [ Text.raw lang ]
+  let copyright text = Elem.create "copyright" [] [ Text.raw text ]
+  let managingEditor email name = Elem.create "managingEditor" [] [ Text.raw $"{email} ({name})" ]
+  let webMaster email name = Elem.create "webMaster" [] [ Text.raw $"{email} ({name})" ]
+
   let pubDate = Elem.create "pubDate"
+  let lastBuildDate = Elem.create "lastBuildDate"
+
+  let ttl time = Elem.create "ttl" [] [ Text.raw $"%i{time}" ]
+
   let item = Elem.create "item"
-  let link = Elem.create "link"
-  let guid = Elem.create "guid" // Same as link, since links are perma for me
