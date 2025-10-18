@@ -71,13 +71,16 @@ let badges =
 
       "https://anlucas.neocities.org/88x31Buttons", [ "drpepper.gif", "Powered by Dr. Pepper", None ]
 
+      "https://www.rssboard.org/rss-validator/check.cgi",
+      [ "valid-rss.png", "Valid RSS", Some "https://www.rssboard.org/rss-validator/check.cgi" ]
+
       "friends",
-      [ "friends/gaffclant.png", "Gaffclant NOW", (Some "https://github.com/gaffclant")
-        "friends/goldenstack.png", "GoldenStack (1.0)", (Some "https://goldenstack.net")
-        "friends/mat.png", "Mat does dev! :3", (Some "https://matdoes.dev")
-        "friends/mudkip.png", "Mudkip", (Some "https://mudkip.dev")
-        "friends/emortal.png", "Emortal", (Some "https://emortaldev.github.io/")
-        "friends/ollie.webp", "Ollie", (Some "https://ollie.lol") ] ]
+      [ "friends/gaffclant.png", "Gaffclant NOW", Some "https://github.com/gaffclant"
+        "friends/goldenstack.png", "GoldenStack (1.0)", Some "https://goldenstack.net"
+        "friends/mat.png", "Mat does dev! :3", Some "https://matdoes.dev"
+        "friends/mudkip.png", "Mudkip", Some "https://mudkip.dev"
+        "friends/emortal.png", "Emortal", Some "https://emortaldev.github.io/"
+        "friends/ollie.webp", "Ollie", Some "https://ollie.lol" ] ]
 
   let elements =
     badges

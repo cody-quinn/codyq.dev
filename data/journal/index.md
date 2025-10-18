@@ -9,6 +9,8 @@ hijacked to mean high-effort essays.
 
 Every entry here has a dedicated page that are then aggregated onto this page.
 Don't rely on this page staying the same! If you need to reference something
-later, get a permalink!
+later, get a permalink! If you want to keep up, an [RSS feed] is available.
 
 <journal-entries />
+
+[RSS feed]: /journal/feed.rss
