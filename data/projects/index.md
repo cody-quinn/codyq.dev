@@ -32,9 +32,9 @@ instructions are available on the GitHub.
 # Sloth (2023)
 
 Sloth is a statically typed, procedural programming language I worked on with my
-friend Nic Gaffney. The compiler is implemented using Rust, LLVM, and Inkwell.
-The language isn't very capable, it's confusing, and the compiler is buggy, but
-it does work and has some simple example programs written in it like Conway's
-Game of Life and a Mandelbrot Plotter.
+friend [Nic Gaffney](https://ngaffney.dev/). The compiler is implemented using
+Rust, LLVM, and Inkwell. The language isn't very capable, it's confusing, and
+the compiler is buggy, but it does work and has some simple example programs
+written in it like Conway's Game of Life and a Mandelbrot Plotter.
 
 [Git Repository](https://github.com/slothlang/sloth).
