@@ -1,8 +1,8 @@
 # Minestalgia
 
 <div style="display: flex">
-  <img src="minestalgia1.png" alt="Early screenshot of Minestalgia with every block in every chunk" style="width: 50%">
   <img src="minestalgia2.png" alt="Screenshot of Minestalgia with 3D terrain generation using Perlin Noise" style="width: 50%">
+  <img src="minestalgia3.png" alt="Screenshot of Minestalgia with accurate terrain generation and friends" style="width: 50%">
 </div>
 
 Minestalgia is a reimplementation of the Minecraft Beta 1.7.3 server software.
@@ -13,6 +13,8 @@ generation for Minestalgia, which has been going well. I have lore accurate
 Random and Perlin Noise generators implemented in Zig.
 
 The project is still in its infancy and under very active development.
+
+[Git Repository](https://github.com/cody-quinn/Minestalgia)
 
 # Discord Fetch (2024)
 
